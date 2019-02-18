@@ -2,7 +2,7 @@
 
     <div class="container">
         <h2>Reset Password</h2>
-        <form action=" <?php echo base_url(); ?>index.php/cLogin/forgotPassword" method="POST">
+        <form action=" <?php echo base_url(); ?>index.php/cLogin/changePassword" method="POST">
 
             <div class="form-group">
                 <input type="password" name="pwd_old" class="form-control" placeholder="Enter antique password">

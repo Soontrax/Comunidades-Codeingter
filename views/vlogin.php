@@ -31,8 +31,7 @@
 
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
 
-
-                    <a href="<?php echo base_url(); ?>cLogin/forgotPasswordview"><small>forgotPassword?</small></a>
+                    <a href="<?php echo base_url(); ?>cLogin/ForgotPasswordview"><small>Forgot Password?</small></a>
 
                 </div>
             </form>

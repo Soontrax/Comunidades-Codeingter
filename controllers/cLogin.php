@@ -44,17 +44,36 @@ class cLogin extends CI_Controller {
         echo "Sesion cerrada correctamente";
     }
 
-    public function forgotPasswordview() {
+    public function changePasswordview() {
         $this->load->view('head');
         $this->load->view('body_password');
     }
 
-    public function forgotPassword() {
+    public function ForgotPasswordview() {
+        $this->load->view('head');
+        $this->load->view('password_forgot');
+    }
+
+    public function changePassword() {
         $pwd_old = $this->input->post('pwd_old');
         $pwd_new = $this->input->post('pwd_new');
 
         $confirm = $this->User->resetPassword($pwd_old, $pwd_new);
 
+        if ($confirm == true) {
+            $this->load->view('vlogin');
+            echo "contraseña cambiada correctamente";
+        } else {
+            $this->load->view('head');
+            $this->load->view('body_password');
+            echo 'contraseña erronea no se cambio FALLO';
+        }
+    }
+
+    public function forgotPassword() {
+        $email = $this->input->post('email');
+
+        $confirm = $this->User->forgotPassword($email);
         if ($confirm == true) {
             $this->load->view('vlogin');
             echo "contraseña cambiada correctamente";
