@@ -25,28 +25,32 @@ class User extends CI_Model {
 
     public function login($email, $password) {
 
-        $this->db->select('nombre', 'email', 'password');
+        $this->db->select('password, email, nombre');
         $this->db->from('propietario');
         $this->db->where('email', $email);
-        $this->db->where('password', $password);
 
         $resultado = $this->db->get();
 
-        if ($resultado->num_rows() == 1) {
-            $registro = $resultado->row();
+        foreach ($resultado->result() as $value) {
+            $pwd_hash = $value->password;
+        }
 
-            //Le decimos a codeingter que inicie session con los valores que hay en la array.
-            $this->session->set_userdata('email', $email);
-            $this->session->set_userdata('nombre', $registro->nombre);
-            //Con esto generamos una tabla de las comunidades
-            $this->load->library('table');
+        if (password_verify($password, $pwd_hash)) {
+            if ($resultado->num_rows() == 1) {
+                $registro = $resultado->row();
 
-            $query = $this->db->query('SELECT * FROM propietario');
-            //$this->table->add_row('Fred', '<strong>Blue</strong>', 'Small');
+                //Le decimos a codeingter que inicie session con los valores que hay en la array.
+                $this->session->set_userdata('email', $email);
+                $this->session->set_userdata('nombre', $registro->nombre);
+                //Con esto generamos una tabla de las comunidades
+                $this->load->library('table');
 
-            echo $this->table->generate($query);
+                $query = $this->db->query('SELECT * FROM propietario');
+                //$this->table->add_row('Fred', '<strong>Blue</strong>', 'Small');
 
-            return true;
+                echo $this->table->generate($query);
+                return true;
+            }
         } else {
             return false;
         }

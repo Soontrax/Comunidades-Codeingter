@@ -30,7 +30,7 @@ class Registro extends CI_Controller {
         $post['email'] = $this->input->post('email');
         $post['nombre'] = $this->input->post('nombre');
         $post['dni'] = $this->input->post('dni');
-        $post['password'] = $this->input->post('pwd');
+        $post['password'] = password_hash($this->input->post('pwd'), PASSWORD_BCRYPT);
 
         //Llamamos al metodo de la BBDD para enviarlo al modelo.
         $result = $this->User->guardar($post);

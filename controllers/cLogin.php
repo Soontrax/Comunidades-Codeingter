@@ -20,21 +20,11 @@ class cLogin extends CI_Controller {
         $existe = $this->User->login($email, $password);
 
         if ($existe == true) {
-            $success['mensaje'] = "<div class='alert alert-success' role='alert'>
-                Te has logueado correctamente
-            </div>";
-
             $this->load->view('head');
             $this->load->view('vindex');
         } else {
-            $failed['mensaje'] = "<div class='alert alert-danger' role='alert'>
-                El usuario o contraseña no son correctos
-            </div>";
-            /* echo "<div class='alert alert-danger' role='alert'>
-              El usuario o contraseña no son correctos
-              </div>"; */
-
-            $this->load->view('vlogin', $failed);
+            echo 'contraseña incorrecta';
+            $this->load->view('vlogin');
         }
     }
 
